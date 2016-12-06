@@ -4,13 +4,9 @@ const rp = require('request-promise');
 const Options = require('./options');
 
 const request = uri =>
-	new Promise((resolve, reject) => {
-		rp(new Options({
-				uri
-			}))
-			.then(resolve)
-			.catch(reject);
-	});
+	rp(new Options({
+		uri
+	}));
 
 const uri = 'https://api.github.com/users/rafael-lima';
 
@@ -20,7 +16,7 @@ const faell = {
 };
 
 Promise.all([request(faell.repos), request(faell.followers)])
-	.then((results) => {
+	.then(results => {
 		const wrap = ('=').repeat(25);
 
 		results.forEach((list, index) => {
